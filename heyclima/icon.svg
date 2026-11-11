@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="HeyClima (Platzhalter)">
+  <rect width="128" height="128" rx="24" fill="#3368e8"/>
+  <path d="M28 48h72a8 8 0 0 1 8 8v16a8 8 0 0 1-8 8H28a8 8 0 0 1-8-8V56a8 8 0 0 1 8-8z" fill="#fff"/>
+  <path d="M40 96c8 0 8 8 16 8M64 96c8 0 8 8 16 8M88 96c8 0 8 8 16 8" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none"/>
+</svg>

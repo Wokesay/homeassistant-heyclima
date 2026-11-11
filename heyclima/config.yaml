@@ -1,0 +1,30 @@
+name: HeyClima
+version: "0.2.0"
+# Fertiges Image: Home Assistant ersetzt {arch} durch amd64 bzw. aarch64 (gebaut vom Knopf "HA-App veröffentlichen")
+image: ghcr.io/wokesay/heyclima-ha-app-{arch}
+slug: heyclima
+description: HeyClima-Oberfläche für Klimageräte in der Seitenleiste von Home Assistant
+url: https://heyclima.com
+arch:
+  - amd64
+  - aarch64
+# init: false, weil das Image nicht auf dem Home-Assistant-Basisimage (s6-overlay) beruht, sondern auf node:22-alpine
+init: false
+startup: application
+boot: auto
+ingress: true
+ingress_port: 8099
+ingress_entry: /
+panel_icon: mdi:air-conditioner
+panel_title: HeyClima
+panel_admin: false
+# Stufe 2 (Modus homeassistant): Zugang zur Home-Assistant-Schnittstelle über den Supervisor-Token; der Proxy nutzt ihn nur dort
+homeassistant_api: true
+options:
+  server_url: https://app.heyclima.com
+  mode: heyclima
+  control: false
+schema:
+  server_url: url
+  mode: list(heyclima|homeassistant)
+  control: bool
