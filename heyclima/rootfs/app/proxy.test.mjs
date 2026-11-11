@@ -222,6 +222,18 @@ test("WebSocket nur auf /api/events", async () => {
   assert.ok(!seen.some((s) => s.url === "/mqtt"));
 });
 
+test("Pfad mit doppeltem Schrägstrich vorn (Ingress mit ingress_entry /) wird wie / bedient, kein 400", async () => {
+  // Der Supervisor hängt ingress_entry an die Ingress-Adresse an; der Proxy sieht dann "//" statt "/" (echtes Home Assistant, 11.11.2026)
+  const r = await get("//", { headers: { "x-ingress-path": "/api/hassio_ingress/abc" } });
+  assert.equal(r.status, 200);
+  assert.ok(r.body.includes("HeyClima"));
+  assert.ok(r.body.includes('src="/api/hassio_ingress/abc/_expo/app.js"'));
+  assert.equal((await get("///_expo/app.js")).status, 200);
+  seen.length = 0;
+  assert.equal((await get("//api/ping")).status, 200);
+  assert.equal(seen.at(-1).url, "/api/ping"); // der Zielhost bleibt fest, nur der Pfad wird geglättet
+});
+
 test("kein Weiterleiten an fremde Hosts", async () => {
   evilHits = 0;
   for (const p of [`//127.0.0.1:${evil.port}/api/x`, `http://127.0.0.1:${evil.port}/api/x`, `/api@127.0.0.1:${evil.port}/x`, `/apix`]) {

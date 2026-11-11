@@ -1,5 +1,5 @@
 name: HeyClima
-version: "0.2.0"
+version: "0.2.1"
 # Fertiges Image: Home Assistant ersetzt {arch} durch amd64 bzw. aarch64 (gebaut vom Knopf "HA-App veröffentlichen")
 image: ghcr.io/wokesay/heyclima-ha-app-{arch}
 slug: heyclima

@@ -32,10 +32,13 @@ export function isAllowed(address, allowedIps) {
   return allowedIps.includes(address.replace(/^::ffff:/i, ""));
 }
 
-/** Pfad der Anfrage: nur "/..." (nie "//..." oder eine absolute Adresse), damit der Zielhost nie aus der Anfrage kommt */
+/** Pfad der Anfrage: nur "/..." (nie eine absolute Adresse), damit der Zielhost nie aus der Anfrage kommt.
+ *  Mehrere Schrägstriche vorn werden zu einem: Der Supervisor hängt `ingress_entry: /` an die Ingress-Adresse an, der Proxy
+ *  sieht dann "//" statt "/" (weißer Bildschirm, 400 beim ersten echten Test). Der Zielhost ist ohnehin fest (server_url);
+ *  "//host/pfad" wird so zu dem Pfad "/host/pfad" und nie zu einem Host. */
 function safeTarget(url) {
-  if (typeof url !== "string" || !url.startsWith("/") || url.startsWith("//") || /[\s\u0000-\u001f]/.test(url)) return null;
-  return url;
+  if (typeof url !== "string" || !url.startsWith("/") || /[\s\u0000-\u001f]/.test(url)) return null;
+  return url.replace(/^\/{2,}/, "/");
 }
 
 /** Wert für das Inline-Skript: JSON ohne "<" (kein </script> möglich) */

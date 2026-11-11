@@ -1,5 +1,9 @@
 # Änderungen
 
+## 0.2.1
+
+- Behoben: Weißer Bildschirm in der Seitenleiste von Home Assistant. Der Supervisor ruft die App mit einem doppelten Schrägstrich am Anfang des Pfads auf; der Proxy lehnte das mit 400 ab. Mehrere Schrägstriche vorn werden jetzt zu einem (der Zielhost bleibt fest).
+
 ## 0.2.0
 
 - Option `control` (Vorgabe `false`): mit `true` kann die Oberfläche im Modus `homeassistant` die `climate.*`-Entitäten steuern (Betriebsart, Soll, Lüfter, Schwenken, Aus/Ein). Der Relay lässt dafür nur `call_service` mit Domäne `climate` und den Diensten `set_hvac_mode`, `set_temperature`, `set_fan_mode`, `set_swing_mode` für eine einzelne, dem Browser gemeldete Entität durch, baut die Anfrage neu auf, prüft Werte gegen Listen und Bereich der Entität, begrenzt die Rate (5/s je Verbindung, 60/min insgesamt) und meldet nur ok oder einen festen Fehlercode. Ohne `control` bleibt alles wie in der reinen Anzeige (nur lesen). Bei einem Fehler zeigt die Oberfläche wieder den Zustand von Home Assistant mit Hinweis. Ungeprüft gegen ein echtes Home Assistant; vor dem Einschalten streng prüfen (DOCS.md, „Steuern“).
