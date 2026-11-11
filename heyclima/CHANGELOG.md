@@ -1,5 +1,9 @@
 # Änderungen
 
+## 0.2.2
+
+- Raumseite auf breiten Bildschirmen: links steht jetzt alles zum Bedienen (Regler, Einschalten, Fühler, Betriebsart, Lüfter, Luftrichtung), rechts Zeitplan mit Schlaf-Timer, Werte und Verlauf. Auf dem Handy bleibt alles wie bisher.
+
 ## 0.2.1
 
 - Behoben: Weißer Bildschirm in der Seitenleiste von Home Assistant. Der Supervisor ruft die App mit einem doppelten Schrägstrich am Anfang des Pfads auf; der Proxy lehnte das mit 400 ab. Mehrere Schrägstriche vorn werden jetzt zu einem (der Zielhost bleibt fest).
